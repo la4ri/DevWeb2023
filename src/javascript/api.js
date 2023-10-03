@@ -1,6 +1,6 @@
 export const filmesLista = async () => {
     const apiKey = '4d77eb09bb22184e8534294983e86dcd';
-    const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
+    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl);
