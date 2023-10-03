@@ -1,9 +1,13 @@
 export default () => {
-    const container = document.createElement('div')
+
+    const container = document.createElement('div');
+
 
     const template = `
-    <h1> Filmes Favoritos </h1>
-    `
+    <div id="movieContainer">
+    <h1>Filmes Favoritos</h1>
+    </div>
+    `;
 
     container.innerHTML = template;
 

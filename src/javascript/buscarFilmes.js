@@ -1,21 +1,27 @@
+// Em buscarFilmes.js
 export default async function searchFilmes() {
-    let query = document.getElementById('pesquisa').value;
+    const query = document.getElementById('pesquisa').value;
     const apiKey = '4d77eb09bb22184e8534294983e86dcd';
     const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
     let resultadoArray = [];
+
+    // Verifique se já existe um contêiner #movieContainer
+    let movieContainer = document.querySelector('#movieContainer');
+
+    if (!movieContainer) {
+        movieContainer = document.createElement('div');
+        movieContainer.id = 'movieContainer';
+        document.body.appendChild(movieContainer);
+    } else {
+        // Limpe o contêiner existente antes de renderizar os novos resultados
+        movieContainer.innerHTML = '';
+    }
 
     try {
         const response = await fetch(apiUrl);
         if (response.status === 200) {
             const data = await response.json();
             resultadoArray = data.results;
-
-            // Remova os elementos da lista atual (se tiverem uma classe chamada 'movie-card')
-            const movieContainer = document.querySelector('#movieContainer');
-            const elementosAntigos = movieContainer.querySelectorAll('.movie-card');
-            elementosAntigos.forEach(elemento => {
-                elemento.remove();
-            });
 
             // Renderize os novos resultados
             resultadoArray.forEach(movie => {
@@ -45,6 +51,7 @@ export default async function searchFilmes() {
     }
 }
 
-const botao = document.getElementById('pesquisar');
-
-botao.addEventListener("click", searchFilmes);
+document.addEventListener('DOMContentLoaded', () => {
+    const botao = document.getElementById('pesquisar');
+    botao.addEventListener("click", searchFilmes);
+});
